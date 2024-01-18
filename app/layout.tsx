@@ -13,12 +13,6 @@ const fontSans = FontSans({
   variable: "--font-sans",
 })
 
-
-const metadata: Metadata = {
-  title: 'Restaurant',
-  description: 'Best food in town',
-}
-
 export default function RootLayout({
   children,
 }: {
