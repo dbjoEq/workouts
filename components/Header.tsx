@@ -7,7 +7,7 @@ export const Header = () => {
         <header className="flex flex-row justify-between items-center">
             <ul>
             <li className={"py-2 px-4"}>
-                <Link href={"/"}>Header</Link>
+                <Link href={"/"}>Fat fighters</Link>
             </li>
             </ul>
 
