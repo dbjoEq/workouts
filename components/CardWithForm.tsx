@@ -56,7 +56,7 @@ export function CardWithForm() {
                     </div>
                 </form>
             </CardContent>
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex  justify-between">
                 <Button variant="outline">Cancel</Button>
                 <Button onClick={onDeployClicked}>Deploy</Button>
             </CardFooter>

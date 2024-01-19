@@ -6,15 +6,15 @@ export const fatifyConfig: ResturantConfigType = {
             href: "/about"
         },{
             name: "Workouts",
-            href: "/about"
+            href: "/workouts"
         },
         {
             name: "Calories",
-            href: "/blog",
+            href: "/calories",
         },
         {
             name: "Weight",
-            href: "/contact",
+            href: "/weight",
         }
     ],
 }
