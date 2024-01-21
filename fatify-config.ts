@@ -2,19 +2,19 @@ export const fatifyConfig: ResturantConfigType = {
     name: "Fat Fighters",
     routes: [
         {
-            name: "About",
-            href: "/about"
+            name: "Jone",
+            href: "/user/1"
         },{
-            name: "Workouts",
-            href: "/workouts"
+            name: "Sigurd",
+            href: "/user/2"
         },
         {
-            name: "Calories",
-            href: "/calories",
+            name: "Alexander",
+            href: "/user/3",
         },
         {
-            name: "Weight",
-            href: "/weight",
+            name: "Daniel",
+            href: "/user/4",
         }
     ],
 }

@@ -1,6 +1,6 @@
 export const mockData: Contestant[] = [
     {
-        id: 1,
+        id: "1",
         name: "Jone Oliversen",
         motivation: "SON OF A GUN",
         age: 30,
@@ -8,11 +8,9 @@ export const mockData: Contestant[] = [
         startWeight: 105,
         goalWeight: 90,
         waist: 102,
-        historicalWeightData: [],
-        historicalCaloriesData: [],
-        historicalWaistData: []
+        dataRecord: [],
     },{
-        id: 2,
+        id: "2",
         name: "Sigurd Tonstad",
         motivation: "APLHA",
         age: 30,
@@ -20,11 +18,9 @@ export const mockData: Contestant[] = [
         startWeight: 82,
         goalWeight: 90,
         waist: 102,
-        historicalWeightData: [],
-        historicalCaloriesData: [],
-        historicalWaistData: []
+        dataRecord: [],
     },{
-        id: 3,
+        id: "3",
         name: "Alexander Fosse",
         motivation: "FØDT SÅNN",
         age: 30,
@@ -32,11 +28,9 @@ export const mockData: Contestant[] = [
         startWeight: 70,
         goalWeight: 65,
         waist: 102,
-        historicalWeightData: [],
-        historicalCaloriesData: [],
-        historicalWaistData: []
+        dataRecord: [],
     },{
-        id: 4,
+        id: "4",
         name: "Daniel Bjørke",
         motivation: "HEALTH IS WEALTH",
         age: 30,
@@ -44,15 +38,82 @@ export const mockData: Contestant[] = [
         startWeight: 90,
         goalWeight: 80,
         waist: 102,
-        historicalWeightData: [],
-        historicalCaloriesData: [],
-        historicalWaistData: []
+        dataRecord: [
+            {
+                type: "weight",
+                value: 90,
+                date: new Date(2024, 1, 2).toLocaleDateString("no-NO"),
+                details: "First weight"
+            },
+            {
+                type: "weight",
+                value: 88,
+                date: new Date(2024, 1, 5).toLocaleDateString("no-NO")
+            },
+            {
+                type: "weight",
+                value: 86,
+                date: new Date(2024, 1, 10).toLocaleDateString("no-NO")
+            },
+            {
+                type: "weight",
+                value: 82,
+                date: new Date(2024, 1, 16).toLocaleDateString("no-NO")
+            },
+            {
+                type: "weight",
+                value: 77,
+                date: new Date(2024, 1, 21).toLocaleDateString("no-NO")
+            },            {
+                type: "calories",
+                value: 2340,
+                date: new Date(2024, 1, 2).toLocaleDateString("no-NO"),
+                details: "First weight"
+            },
+            {
+                type: "calories",
+                value: 2800,
+                date: new Date(2024, 1, 5).toLocaleDateString("no-NO")
+            },
+            {
+                type: "calories",
+                value: 2200,
+                date: new Date(2024, 1, 10).toLocaleDateString("no-NO")
+            },
+            {
+                type: "calories",
+                value: 2100,
+                date: new Date(2024, 1, 16).toLocaleDateString("no-NO")
+            },
+            {
+                type: "calories",
+                value: 3000,
+                date: new Date(2024, 1, 21).toLocaleDateString("no-NO")
+            },{
+                type: "workout",
+                value: 1,
+                date: new Date(2024, 1, 12).toLocaleDateString("no-NO")
+            },{
+                type: "workout",
+                value: 1,
+                date: new Date(2024, 1, 1).toLocaleDateString("no-NO")
+            },{
+                type: "workout",
+                value: 1,
+                date: new Date(2024, 1, 19).toLocaleDateString("no-NO")
+            },{
+                type: "workout",
+                value: 1,
+                date: new Date(2024, 1, 30).toLocaleDateString("no-NO")
+            },
+
+        ],
 
     }
 ]
 
-type Contestant = {
-    id: number;
+export type Contestant = {
+    id: string;
     name: string;
     motivation: string;
     age: number;
@@ -60,22 +121,12 @@ type Contestant = {
     startWeight: number;
     goalWeight: number;
     waist: number;
-    historicalWeightData: WeightData[],
-    historicalCaloriesData: CaloriesData[],
-    historicalWaistData: WaistData[],
+    dataRecord?: DataRecord[]
 }
 
-type WeightData = {
-    weight: number;
-    date: Date,
-}
-
-type CaloriesData = {
-    calories: number;
-    date: Date,
-}
-
-type WaistData = {
-    waist: number;
-    date: Date,
+export type DataRecord = {
+    type: "weight" | "calories" | "workout" | "waist";
+    value: number;
+    date: string;
+    details?: string;
 }
