@@ -3,7 +3,7 @@ import {Contestant, mockData} from "@/lib/mockData";
 export const useUser = (id: string) => {
     const user = mockData.find((user) => findUser(user, id));
 
-    const weight = user?.dataRecord?.filter((record) => record.type === "weight")
+    const weight = user?.dataRecord?.filter((record) => record.type === "weight");
     const calorie = user?.dataRecord?.filter((record) => record.type === "calories")
     const workout = user?.dataRecord?.filter((record) => record.type === "workout")
     const waist = user?.dataRecord?.filter((record) => record.type === "waist")

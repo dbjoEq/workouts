@@ -15,7 +15,7 @@ export const HamburgerMenu = () => {
         <div className={"py-2 px-4 sm:hidden"}>
             {isOpen ? <X onClick={toggleMenu}/> : <Menu onClick={toggleMenu} />}
             {isOpen && (
-                <div className={"block absolute w-screen left-0 z-10 bg-background h-full"}>
+                <div className={"block absolute w-screen left-0 z-10 bg-background h-full mt-8"}>
                     <ul className="flex flex-col items-center justify-between min-h-[250px]">
                         {fatifyConfig.routes.map((route) => (
                             <li key={route.name} className={"hover:text-background hover:bg-foreground"}>

@@ -2,6 +2,8 @@
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import {DataRecord} from "@/lib/mockData";
+import {Separator} from "@/components/ui/separator";
+import {DataRecords} from "@/components/DataRecords";
 
 type WeightProps = {
     weightRecord: DataRecord[]
