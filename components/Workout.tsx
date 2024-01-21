@@ -1,6 +1,6 @@
 "use client"
 
-import {Bar, BarChart, Legend, ResponsiveContainer, Tooltip, YAxis} from "recharts";
+import {Bar, BarChart, Legend, ResponsiveContainer, YAxis} from "recharts";
 import {DataRecord} from "@/lib/mockData";
 
 type WorkoutProps = {

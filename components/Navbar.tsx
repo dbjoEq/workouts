@@ -5,7 +5,7 @@ import Link from 'next/link'
 import {fatifyConfig} from "@/fatify-config";
 
 export const Navbar = () => {
-    const pathname = usePathname()
+    const pathname = usePathname();
     return (
         <nav className={"py-4 px-8  max-sm:hidden"}>
             <ul className={"flex flex-row gap-5"}>
