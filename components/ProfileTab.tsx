@@ -19,7 +19,7 @@ import React, {useState} from "react";
 import {DataRecord} from "@/lib/mockData";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
-import {QueryClient, useMutation, useQueryClient} from "@tanstack/react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {postRecord} from "@/lib/APIService";
 
 type ProfileTabProps = {
@@ -30,7 +30,7 @@ type ProfileTabProps = {
 }
 
 export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) => {
-    const [weightInput, setWeightInput] = useState<number>();
+    const [weightInput, setWeightInput] = useState<string>();
     const [calorieInput, setCalorieInput] = useState<string>();
     const [workoutInput, setWorkoutInput] = useState<string>();
 
@@ -47,7 +47,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
     const onWeightAdd = () => {
         mutate({
             type: "weight",
-            value: weightInput,
+            value: parseInt(weightInput as string),
             contestantId: userId,
             userId
         },
@@ -81,7 +81,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
                     </DrawerHeader>
                     <DrawerFooter className="pt-2">
                         <Label>Weight:</Label>
-                        <Input type={"number"} placeholder={"add weight..."} onChange={(event) => setWeightInput(event.target.value as unknown as number)}/>
+                        <Input type={"number"} placeholder={"add weight..."} onChange={(event) => setWeightInput(event.target.value)}/>
                         <DrawerClose>
                             <Button type="submit" disabled={!weightInput} onClick={onWeightAdd}>ADD</Button>
                         </DrawerClose>

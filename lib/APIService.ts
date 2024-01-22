@@ -2,7 +2,7 @@ import {DataRecord} from "@/lib/mockData";
 
 const baseUrl = process.env.BASE_URL;
 export const getUser = async (userId: string) => {
-    const url = `${baseUrl}/api/user/${userId}`;
+    const url = `/api/user/${userId}`;
     const res = await fetch(url,{
         method: "GET",
     });
@@ -16,7 +16,7 @@ export const getUser = async (userId: string) => {
 }
 
 export const postRecord = async (data: any) => {
-    const url = `${baseUrl}/api/user/${data?.userId}/record`;
+    const url = `/api/user/${data?.userId}/record`;
     const res = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
