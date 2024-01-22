@@ -1,6 +1,3 @@
-import {DataRecord} from "@/lib/mockData";
-
-const baseUrl = process.env.BASE_URL;
 export const getUser = async (userId: string) => {
     const url = `/api/user/${userId}`;
     const res = await fetch(url,{
