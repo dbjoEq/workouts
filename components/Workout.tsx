@@ -8,7 +8,6 @@ type WorkoutProps = {
 }
 
 export const Workout = ({workoutRecord}: WorkoutProps) => {
-    console.log({workoutRecord});
     return (
         <div >
             <ResponsiveContainer height={400}>

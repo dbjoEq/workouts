@@ -28,7 +28,54 @@ export const mockData: Contestant[] = [
         startWeight: 70,
         goalWeight: 65,
         waist: 102,
-        dataRecord: [],
+        dataRecord: [
+            {
+                type: "weight",
+                value: 90,
+                date: new Date(2024, 1, 2).toLocaleDateString("no-NO"),
+                details: "First weight"
+            },
+            {
+                type: "weight",
+                value: 90,
+                date: new Date(2024, 1, 5).toLocaleDateString("no-NO")
+            },
+            {
+                type: "weight",
+                value: 88,
+                date: new Date(2024, 1, 21).toLocaleDateString("no-NO")
+            },            {
+                type: "calories",
+                value: 2340,
+                date: new Date(2024, 1, 2).toLocaleDateString("no-NO"),
+                details: "First weight"
+            },
+            {
+                type: "calories",
+                value: 1289,
+                date: new Date(2024, 1, 4).toLocaleDateString("no-NO")
+            },
+            {
+                type: "calories",
+                value: 2200,
+                date: new Date(2024, 1, 10).toLocaleDateString("no-NO")
+            },
+            {
+                type: "calories",
+                value: 1700,
+                date: new Date(2024, 1, 14).toLocaleDateString("no-NO")
+            },
+            {
+                type: "calories",
+                value: 3400,
+                date: new Date(2024, 1, 22).toLocaleDateString("no-NO")
+            },{
+                type: "workout",
+                value: 1,
+                date: new Date(2024, 1, 11).toLocaleDateString("no-NO")
+            }
+
+        ],
     },{
         id: "4",
         name: "Daniel Bjørke",
@@ -121,6 +168,7 @@ export type Contestant = {
     startWeight: number;
     goalWeight: number;
     waist: number;
+    caloriesTarget?: number;
     dataRecord?: DataRecord[]
 }
 

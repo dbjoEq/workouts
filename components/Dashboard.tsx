@@ -1,7 +1,9 @@
-export default function (){
+"use client"
+
+export default function Dashboard(){
     return (
         <div>
-            <p>Hello dashboard</p>
+            <p>Hello</p>
         </div>
     )
 }

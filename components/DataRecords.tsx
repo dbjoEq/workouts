@@ -25,16 +25,12 @@ export const DataRecords = ({records, type, unit}: DataRecordsType) => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {/*<TableRow>*/}
-                    {/*<TableCell className="font-medium">12. Feb</TableCell>*/}
-                    {/*<TableCell className="text-right">83</TableCell>*/}
                     {records.map((record) => (
                         <TableRow>
                           <TableCell className="font-medium">{record.date}</TableCell>
                             <TableCell className="text-right">{record.value}</TableCell>
                         </TableRow>
                     ))}
-                {/*</TableRow>*/}
             </TableBody>
         </Table>
 

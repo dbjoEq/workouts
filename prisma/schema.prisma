@@ -8,27 +8,25 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(255)
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  content   String?
-  published Boolean  @default(false)
-  authorId  Int
-  User      User     @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+model Contestant {
+  id           String    @unique @id
+  name         String
+  motivation   String
+  age          Int
+  height       Int
+  startWeight  Int
+  goalWeight   Int
+  waist        Int
+  caloriesTarget Int?
+  dataRecord   DataRecord[]
 }
 
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  userId Int     @unique
-  User   User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model User {
+model DataRecord {
   id      Int      @id @default(autoincrement())
-  name    String?  @db.VarChar(255)
-  email   String   @unique @db.VarChar(255)
-  Post    Post[]
-  Profile Profile?
+  type    String
+  value   Int
+  date    String
+  details String?
+  contestantId String
+  contestant   Contestant  @relation(fields: [contestantId], references: [id])
 }
