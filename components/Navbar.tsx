@@ -7,7 +7,7 @@ import {fatifyConfig} from "@/fatify-config";
 export const Navbar = () => {
     const pathname = usePathname();
     return (
-        <nav className={"py-4 px-8  max-sm:hidden"}>
+        <nav className={"py-2 px-4  max-sm:hidden"}>
             <ul className={"flex flex-row gap-5"}>
                 {fatifyConfig.routes.map((route) => (
                     <li key={route.name} className={"hover:text-background hover:bg-foreground"}>

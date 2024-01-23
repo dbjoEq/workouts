@@ -14,7 +14,7 @@ export const Workout = ({workoutRecord}: WorkoutProps) => {
                 <BarChart height={40} width={150} data={workoutRecord}>
                     <Legend height={36} verticalAlign="top"/>
                     <YAxis dataKey="value" />
-                    <Bar dataKey="value" fill="#7c3aed" name={"Workouts"}/>
+                    <Bar dataKey="value" fill="#2563eb" name={"Workouts"}/>
                 </BarChart>
             </ResponsiveContainer>
         </div>

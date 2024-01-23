@@ -20,7 +20,7 @@ export const postRecord = async (data: any) => {
             type: data.type,
             value: data.value,
             details: data?.details,
-            contestantId: data?.userId
+            profileId: data?.userId
         })
     })
 

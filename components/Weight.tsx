@@ -15,7 +15,7 @@ export const Weight = ({weightRecord}: WeightProps) => {
                         <XAxis dataKey="date"/>
                         <YAxis dataKey={"value"} type={"number"} domain={["auto", "data-max"]} label={{value: "kg", angle: 360, position: 'insideLeft'}}/>
                         <Tooltip />
-                        <Line name={"Weight"} type="monotone" dataKey="value" stroke="#7c3aed" activeDot={{ r: 8 }} unit={"kg"} />
+                        <Line name={"Weight"} type="monotone" dataKey="value" stroke="#2563eb" activeDot={{ r: 8 }} unit={"kg"} />
                     </LineChart>
                 </ResponsiveContainer>
         </div>

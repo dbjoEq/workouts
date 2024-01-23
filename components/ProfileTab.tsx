@@ -41,7 +41,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
         mutationFn: (data: any) => postRecord(data),
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ["contestant"]
+                queryKey: ["profile"]
             });
             toast("Record Updated!")
         }

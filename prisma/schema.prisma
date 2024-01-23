@@ -5,7 +5,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Contestant {
@@ -14,8 +14,8 @@ model Contestant {
   motivation   String
   age          Int
   height       Int
-  startWeight  Int
-  goalWeight   Int
+  startWeight  Float
+  goalWeight   Float
   waist        Int
   caloriesTarget Int?
   dataRecord   DataRecord[]
@@ -24,9 +24,32 @@ model Contestant {
 model DataRecord {
   id      Int      @id @default(autoincrement())
   type    String
-  value   Int
+  value   Float
   date    String
   details String?
   contestantId String
   contestant   Contestant  @relation(fields: [contestantId], references: [id])
+}
+
+model Profile {
+  id           String    @unique @id
+  name         String
+  motivation   String
+  age          Int
+  height       Int
+  startWeight  Float
+  goalWeight   Float
+  waist        Int
+  caloriesTarget Int?
+  record   Record[]
+}
+
+model Record {
+  id      Int      @id @default(autoincrement())
+  type    String
+  value   Float
+  date    String
+  details String?
+  profileId String
+  contestant   Profile  @relation(fields: [profileId], references: [id])
 }

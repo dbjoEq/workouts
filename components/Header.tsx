@@ -6,7 +6,7 @@ export const Header = () => {
     return (
         <header className="flex flex-row justify-between items-center">
             <ul>
-            <li className={"py-4 px-8 "}>
+            <li className={"py-2 px-4"}>
                 <Link href={"/"}>Fat fighters</Link>
             </li>
             </ul>

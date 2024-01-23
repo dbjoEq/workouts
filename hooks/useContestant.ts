@@ -4,15 +4,15 @@ import {DataRecord} from "@/lib/mockData";
 import {useMemo} from "react";
 
 export const useContestant = (userId: string) => {
-    const {data: contestant, isLoading, isError, error} = useQuery({
-        queryKey: ["contestant"],
+    const {data: profile, isLoading, isError, error} = useQuery({
+        queryKey: ["profile"],
         queryFn: () => getUser(userId),
     });
-    const weightRecord = useMemo(() => contestant?.dataRecord?.filter((c: DataRecord) => c.type === "weight"), [contestant])
-    const caloriesRecord = useMemo(() => contestant?.dataRecord?.filter((c: DataRecord) => c.type === "calories"), [contestant])
-    const workoutRecord = useMemo(() => contestant?.dataRecord?.filter((c: DataRecord) => c.type === "workout"), [contestant])
+    const weightRecord = useMemo(() => profile?.record?.filter((c: DataRecord) => c.type === "weight"), [profile])
+    const caloriesRecord = useMemo(() => profile?.record?.filter((c: DataRecord) => c.type === "calories"), [profile])
+    const workoutRecord = useMemo(() => profile?.record?.filter((c: DataRecord) => c.type === "workout"), [profile])
 
     return {
-        contestant, isError, isLoading, error, weightRecord, workoutRecord, caloriesRecord
+        profile, isError, isLoading, error, weightRecord, workoutRecord, caloriesRecord
     }
 }
