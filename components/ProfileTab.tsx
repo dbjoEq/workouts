@@ -101,7 +101,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
 
                     </DrawerHeader>
                     <DrawerFooter className="pt-2">
-                        <WeightCounter  weight={Number(weightInput?.toFixed(1))} reduceWeight={() => setWeightInput((w) => (w-0.1))} increaseWeight={() => setWeightInput((w) => w+0.1)}/>
+                        <WeightCounter  weight={weightInput} reduceWeight={() => setWeightInput((w) => (w-1))} increaseWeight={() => setWeightInput((w) => w+1)}/>
                         <DrawerClose>
                             <Button className={"w-full"} type="submit" disabled={!weightInput} onClick={onWeightAdd}>ADD</Button>
                         </DrawerClose>

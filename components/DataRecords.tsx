@@ -25,8 +25,8 @@ export const DataRecords = ({records, type, unit}: DataRecordsType) => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                    {records.map((record) => (
-                        <TableRow>
+                    {records.map((record, index) => (
+                        <TableRow id={index.toString()}>
                           <TableCell className="font-medium">{record.date}</TableCell>
                             <TableCell className="text-right">{record.value}</TableCell>
                         </TableRow>
