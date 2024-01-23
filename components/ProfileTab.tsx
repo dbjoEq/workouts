@@ -17,11 +17,11 @@ import {Calorie} from "@/components/Calorie";
 import {Workout} from "@/components/Workout";
 import React, {useState} from "react";
 import {DataRecord} from "@/lib/mockData";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {postRecord} from "@/lib/APIService";
 import {toast} from "sonner";
+import {WeightCounter} from "@/components/WeightCounter";
+import {CaloriesCounter} from "@/components/CaloriesCounter";
 
 type ProfileTabProps = {
     weight?: DataRecord[];
@@ -30,9 +30,10 @@ type ProfileTabProps = {
     userId: string;
 }
 
+
 export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) => {
-    const [weightInput, setWeightInput] = useState<string>();
-    const [calorieInput, setCalorieInput] = useState<string>();
+    const [weightInput, setWeightInput] = useState<number>(90);
+    const [calorieInput, setCalorieInput] = useState<number>(2500);
 
     const queryClient = useQueryClient();
 
@@ -45,10 +46,11 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
             toast("Record Updated!")
         }
     })
+
     const onWeightAdd = () => {
         mutate({
             type: "weight",
-            value: parseFloat(weightInput as string),
+            value: weightInput,
             contestantId: userId,
             userId
         },
@@ -57,7 +59,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
     const onCalorieAdd = () => {
         mutate({
             type: "calories",
-            value: parseInt(calorieInput as string),
+            value: calorieInput,
             contestantId: userId,
             userId
         },
@@ -99,8 +101,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
 
                     </DrawerHeader>
                     <DrawerFooter className="pt-2">
-                        <Label>Weight:</Label>
-                        <Input type={"number"} placeholder={"add weight..."} onChange={(event) => setWeightInput(event.target.value)}/>
+                        <WeightCounter  weight={Number(weightInput?.toFixed(1))} reduceWeight={() => setWeightInput((w) => (w-0.1))} increaseWeight={() => setWeightInput((w) => w+0.1)}/>
                         <DrawerClose>
                             <Button className={"w-full"} type="submit" disabled={!weightInput} onClick={onWeightAdd}>ADD</Button>
                         </DrawerClose>
@@ -130,8 +131,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
 
                     </DrawerHeader>
                     <DrawerFooter className="pt-2">
-                        <Label>Calories:</Label>
-                        <Input type={"number"} placeholder={"add calories..."} onChange={(event) => setCalorieInput(event.target.value)}/>
+                        <CaloriesCounter calories={calorieInput} setCalories={setCalorieInput}/>
                         <DrawerClose>
                             <Button className={"w-full"} type="submit" disabled={!calorieInput} onClick={onCalorieAdd}>ADD</Button>
                         </DrawerClose>
