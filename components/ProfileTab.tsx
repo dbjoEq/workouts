@@ -47,7 +47,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
     const onWeightAdd = () => {
         mutate({
             type: "weight",
-            value: parseInt(weightInput as string),
+            value: parseFloat(weightInput as string),
             contestantId: userId,
             userId
         },
