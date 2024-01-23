@@ -8,7 +8,6 @@ export const useContestant = (userId: string) => {
         queryKey: ["contestant"],
         queryFn: () => getUser(userId),
     });
-    console.log({contestant})
     const weightRecord = useMemo(() => contestant?.dataRecord?.filter((c: DataRecord) => c.type === "weight"), [contestant])
     const caloriesRecord = useMemo(() => contestant?.dataRecord?.filter((c: DataRecord) => c.type === "calories"), [contestant])
     const workoutRecord = useMemo(() => contestant?.dataRecord?.filter((c: DataRecord) => c.type === "workout"), [contestant])

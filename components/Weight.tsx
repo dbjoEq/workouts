@@ -13,7 +13,7 @@ export const Weight = ({weightRecord}: WeightProps) => {
                         <Legend height={36} verticalAlign="top"/>
                         <CartesianGrid strokeDasharray="3 3" fillOpacity={0.6}/>
                         <XAxis dataKey="date"/>
-                        <YAxis dataKey={"value"} label={{value: "kg", angle: 360, position: 'insideLeft'}}/>
+                        <YAxis dataKey={"value"} type={"number"} domain={["auto", "data-max"]} label={{value: "kg", angle: 360, position: 'insideLeft'}}/>
                         <Tooltip />
                         <Line name={"Weight"} type="monotone" dataKey="value" stroke="#7c3aed" activeDot={{ r: 8 }} unit={"kg"} />
                     </LineChart>

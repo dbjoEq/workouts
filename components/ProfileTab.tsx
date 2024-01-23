@@ -21,6 +21,7 @@ import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {postRecord} from "@/lib/APIService";
+import {toast} from "sonner";
 
 type ProfileTabProps = {
     weight?: DataRecord[];
@@ -32,7 +33,6 @@ type ProfileTabProps = {
 export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) => {
     const [weightInput, setWeightInput] = useState<string>();
     const [calorieInput, setCalorieInput] = useState<string>();
-    const [workoutInput, setWorkoutInput] = useState<string>();
 
     const queryClient = useQueryClient();
 
@@ -41,13 +41,32 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ["contestant"]
-            })
+            });
+            toast("Record Updated!")
         }
     })
     const onWeightAdd = () => {
         mutate({
             type: "weight",
             value: parseFloat(weightInput as string),
+            contestantId: userId,
+            userId
+        },
+            )
+    }
+    const onCalorieAdd = () => {
+        mutate({
+            type: "calories",
+            value: parseInt(calorieInput as string),
+            contestantId: userId,
+            userId
+        },
+            )
+    }
+    const onWorkoutAdd = () => {
+        mutate({
+            type: "workout",
+            value: 1,
             contestantId: userId,
             userId
         },
@@ -83,7 +102,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
                         <Label>Weight:</Label>
                         <Input type={"number"} placeholder={"add weight..."} onChange={(event) => setWeightInput(event.target.value)}/>
                         <DrawerClose>
-                            <Button type="submit" disabled={!weightInput} onClick={onWeightAdd}>ADD</Button>
+                            <Button className={"w-full"} type="submit" disabled={!weightInput} onClick={onWeightAdd}>ADD</Button>
                         </DrawerClose>
                         <DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
@@ -95,25 +114,61 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
                 {calorie && (
                     <>
                         <DrawerTrigger>
-                            <Button>Add calories</Button>
+                            <Button>Add Calories</Button>
                         </DrawerTrigger>
                         <Calorie calorieRecord={calorie}/>
-                        <DataRecords records={calorie} type={"Calories"} unit={"kcal"}/>
+                        <DataRecords records={calorie} type={"calories"} unit={"kcal"}/>
                     </>
                 )
                 }
+                <DrawerContent>
+                    <DrawerHeader className="text-left">
+                        <DrawerTitle>Add Calories</DrawerTitle>
+                        <DrawerDescription>
+                            Add calories to your record. Click add when you're done.
+                        </DrawerDescription>
+
+                    </DrawerHeader>
+                    <DrawerFooter className="pt-2">
+                        <Label>Calories:</Label>
+                        <Input type={"number"} placeholder={"add calories..."} onChange={(event) => setCalorieInput(event.target.value)}/>
+                        <DrawerClose>
+                            <Button className={"w-full"} type="submit" disabled={!calorieInput} onClick={onCalorieAdd}>ADD</Button>
+                        </DrawerClose>
+                        <DrawerClose asChild>
+                            <Button variant="outline">Cancel</Button>
+                        </DrawerClose>
+                    </DrawerFooter>
+                </DrawerContent>
             </TabsContent>
             <TabsContent value="workout">
                 {workout && (
                     <>
                         <DrawerTrigger>
-                            <Button>Add workout</Button>
+                            <Button>Add Workout</Button>
                         </DrawerTrigger>
                         <Workout workoutRecord={workout}/>
                         <DataRecords records={workout} type={"Workout"} unit={"amount"}/>
                     </>
                 )
                 }
+                <DrawerContent>
+                    <DrawerHeader className="text-left">
+                        <DrawerTitle>Add Workout</DrawerTitle>
+                        <DrawerDescription>
+                            Add workout to your record. Click add when you're done.
+                        </DrawerDescription>
+
+                    </DrawerHeader>
+                    <DrawerFooter className="pt-2">
+                        <DrawerClose>
+                            <Button className={"w-full"} type="submit" onClick={onWorkoutAdd}>ADD</Button>
+                        </DrawerClose>
+                        <DrawerClose asChild>
+                            <Button variant="outline">Cancel</Button>
+                        </DrawerClose>
+                    </DrawerFooter>
+                </DrawerContent>
             </TabsContent>
         </Tabs>
     )
