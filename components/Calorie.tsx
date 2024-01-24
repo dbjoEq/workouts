@@ -11,16 +11,17 @@ import {
     ReferenceLine
 } from 'recharts';
 type CalorieProps = {
-    calorieRecord: DataRecord[]
+    calorieRecord: DataRecord[];
+    calorieTarget?: number;
 }
 
-export const Calorie = ({calorieRecord}: CalorieProps) => {
+export const Calorie = ({calorieRecord, calorieTarget}: CalorieProps) => {
     return (
         <div>
         <ResponsiveContainer height={400}>
             <BarChart height={40} width={150} data={calorieRecord}>
                 <Legend height={36} verticalAlign="top"/>
-                <ReferenceLine y={2500} label="Target" stroke="#2563eb" strokeDasharray="3 3" />
+                <ReferenceLine y={calorieTarget ?? 2500} label="Target" stroke="#2563eb" strokeDasharray="3 3" />
                 <YAxis dataKey="value" />
                 <Tooltip />
                 <Bar dataKey="value" fill="#2563eb" name={"Calories"} unit={"kcal"}/>

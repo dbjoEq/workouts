@@ -4,9 +4,6 @@ export const fatifyConfig: ResturantConfigType = {
         {
             name: "Jone",
             href: "/user/1"
-        },{
-            name: "Sigurd",
-            href: "/user/2"
         },
         {
             name: "Alexander",

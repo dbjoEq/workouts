@@ -15,6 +15,19 @@ export async function POST(request: NextRequest){
     return NextResponse.json(res);
 }
 
+export async function GET(request: NextRequest, context: {params: {userId: string}}){
+    const {userId} = context.params;
+    const records = await prisma.record.findMany({
+        where: {profileId: userId},
+        include: {contestant: false}
+    })
+    return NextResponse.json(records);
+}
+
+
+
+
+
 
 
 

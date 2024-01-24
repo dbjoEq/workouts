@@ -15,8 +15,8 @@ import {Weight} from "@/components/Weight";
 import {DataRecords} from "@/components/DataRecords";
 import {Calorie} from "@/components/Calorie";
 import {Workout} from "@/components/Workout";
-import React, {useState} from "react";
-import {DataRecord} from "@/lib/mockData";
+import React, {useMemo, useState} from "react";
+import {Contestant, DataRecord} from "@/lib/mockData";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {postRecord} from "@/lib/APIService";
 import {toast} from "sonner";
@@ -27,14 +27,14 @@ type ProfileTabProps = {
     weight?: DataRecord[];
     calorie?: DataRecord[];
     workout?: DataRecord[];
-    userId: string;
+    profile: Contestant;
 }
 
 
-export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) => {
+export const ProfileTab = ({weight, calorie, workout, profile}: ProfileTabProps) => {
     const [weightInput, setWeightInput] = useState<number>(90);
     const [calorieInput, setCalorieInput] = useState<number>(2500);
-
+    console.log({weight});
     const queryClient = useQueryClient();
 
     const {mutate, isSuccess, isPending} = useMutation({
@@ -51,8 +51,8 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
         mutate({
             type: "weight",
             value: weightInput,
-            contestantId: userId,
-            userId
+            contestantId: profile.id,
+            userId: profile.id
         },
             )
     }
@@ -60,8 +60,8 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
         mutate({
             type: "calories",
             value: calorieInput,
-            contestantId: userId,
-            userId
+            contestantId: profile.id,
+            userId: profile.id
         },
             )
     }
@@ -69,11 +69,17 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
         mutate({
             type: "workout",
             value: 1,
-            contestantId: userId,
-            userId
+            contestantId: profile.id,
+            userId: profile.id
         },
             )
     }
+
+    // const lastWeight = useMemo(() => {
+    //     const lastIndex = weight[weight.length -1];
+    //     const last = weight?.slice(-1);
+    //     return last
+    // }, [weight])
     return (
         <Tabs defaultValue="weight">
             <TabsList>
@@ -101,7 +107,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
 
                     </DrawerHeader>
                     <DrawerFooter className="pt-2">
-                        <WeightCounter  weight={weightInput} reduceWeight={() => setWeightInput((w) => (w-1))} increaseWeight={() => setWeightInput((w) => w+1)}/>
+                        <WeightCounter  weight={Number(weightInput.toFixed(1))} reduceWeight={() => setWeightInput((w) => (w-0.1))} increaseWeight={() => setWeightInput((w) => w+0.1)}/>
                         <DrawerClose>
                             <Button className={"w-full"} type="submit" disabled={!weightInput} onClick={onWeightAdd}>ADD</Button>
                         </DrawerClose>
@@ -117,7 +123,7 @@ export const ProfileTab = ({weight, calorie, workout, userId}: ProfileTabProps) 
                         <DrawerTrigger>
                             <Button>Add Calories</Button>
                         </DrawerTrigger>
-                        <Calorie calorieRecord={calorie}/>
+                        <Calorie calorieRecord={calorie} />
                         <DataRecords records={calorie} type={"calories"} unit={"kcal"}/>
                     </>
                 )

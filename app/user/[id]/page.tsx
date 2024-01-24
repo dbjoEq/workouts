@@ -21,7 +21,7 @@ export default function ({ params }: { params: { id: string } }){
         <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
             <div className={"py-2 px-4"}>
                 <ProfileBio profile={profile}/>
-                <ProfileTab weight={weightRecord} calorie={caloriesRecord} workout={workoutRecord} userId={params.id}/>
+                <ProfileTab weight={weightRecord} calorie={caloriesRecord} workout={workoutRecord} profile={profile}/>
             </div>
         </Drawer>
     )
