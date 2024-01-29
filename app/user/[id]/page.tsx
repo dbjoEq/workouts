@@ -1,27 +1,23 @@
 "use client"
 
-import React, {useState} from "react";
+import React, {Suspense, useState} from "react";
 import {
     Drawer
 } from "@/components/ui/drawer";
-import {ProfileTab} from "@/components/ProfileTab";
-import {useContestant} from "@/hooks/useContestant";
-import {LoadingSpinner} from "@/components/ui/LoadingSpinner";
 import {ProfileBio} from "@/components/ProfileBio";
+import {ProfileTab} from "@/components/ProfileTab";
+import {LoadingSpinner} from "@/components/ui/LoadingSpinner";
 
 export default function ({ params }: { params: { id: string } }){
-    const {profile, isLoading, weightRecord, caloriesRecord, workoutRecord} = useContestant(params.id);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-
-    if(isLoading){
-        return <div className={"py-2 px-4 flex flex-row"}><p>Loading...</p><LoadingSpinner/></div>
-    }
 
     return (
         <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
             <div className={"py-2 px-4"}>
-                <ProfileBio profile={profile}/>
-                <ProfileTab weight={weightRecord} calorie={caloriesRecord} workout={workoutRecord} profile={profile}/>
+                <ProfileBio userId={params.id}/>
+                <Suspense fallback={<LoadingSpinner/>}>
+                    <ProfileTab userId={params.id}/>
+                </Suspense>
             </div>
         </Drawer>
     )

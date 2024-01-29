@@ -1,6 +1,5 @@
 "use client"
 
-import {DataRecord} from "@/lib/mockData";
 import {
     BarChart,
     Bar,
@@ -10,8 +9,9 @@ import {
     ResponsiveContainer,
     ReferenceLine
 } from 'recharts';
+import { Record } from '@prisma/client';
 type CalorieProps = {
-    calorieRecord: DataRecord[];
+    calorieRecord: Record[];
     calorieTarget?: number;
 }
 

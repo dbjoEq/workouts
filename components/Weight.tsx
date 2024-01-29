@@ -1,8 +1,8 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import {DataRecord} from "@/lib/mockData";
+import { Record } from '@prisma/client';
 
 type WeightProps = {
-    weightRecord: DataRecord[]
+    weightRecord: Record[]
 }
 
 export const Weight = ({weightRecord}: WeightProps) => {

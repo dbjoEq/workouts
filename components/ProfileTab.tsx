@@ -15,71 +15,59 @@ import {Weight} from "@/components/Weight";
 import {DataRecords} from "@/components/DataRecords";
 import {Calorie} from "@/components/Calorie";
 import {Workout} from "@/components/Workout";
-import React, {useMemo, useState} from "react";
-import {Contestant, DataRecord} from "@/lib/mockData";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {postRecord} from "@/lib/APIService";
-import {toast} from "sonner";
+import React, { useState} from "react";
 import {WeightCounter} from "@/components/WeightCounter";
 import {CaloriesCounter} from "@/components/CaloriesCounter";
+import {useRecord} from "@/hooks/useRecord";
 
 type ProfileTabProps = {
-    weight?: DataRecord[];
-    calorie?: DataRecord[];
-    workout?: DataRecord[];
-    profile: Contestant;
+    userId: string;
 }
 
 
-export const ProfileTab = ({weight, calorie, workout, profile}: ProfileTabProps) => {
-    const [weightInput, setWeightInput] = useState<number>(90);
+export const ProfileTab = ({userId}: ProfileTabProps) => {
+    const {addRecord, weightRecord, caloriesRecord, workoutRecord, lastWeight} = useRecord(userId);
+    const [weightInput, setWeightInput] = useState<number>(lastWeight);
     const [calorieInput, setCalorieInput] = useState<number>(2500);
-    console.log({weight});
-    const queryClient = useQueryClient();
-
-    const {mutate, isSuccess, isPending} = useMutation({
-        mutationFn: (data: any) => postRecord(data),
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: ["profile"]
-            });
-            toast("Record Updated!")
-        }
-    })
-
+    const [isUpdatingKg, setIsUpdatingKg] = useState<boolean>(true);
+    const [details, setDetails] = useState<string>("");
     const onWeightAdd = () => {
-        mutate({
+        addRecord({
             type: "weight",
-            value: weightInput,
-            contestantId: profile.id,
-            userId: profile.id
+            value: Number(weightInput.toFixed(1)),
+            contestantId: userId,
+            details,
+            userId
         },
             )
     }
     const onCalorieAdd = () => {
-        mutate({
+        addRecord({
             type: "calories",
             value: calorieInput,
-            contestantId: profile.id,
-            userId: profile.id
+            contestantId: userId,
+            userId
         },
             )
     }
     const onWorkoutAdd = () => {
-        mutate({
+        addRecord({
             type: "workout",
             value: 1,
-            contestantId: profile.id,
-            userId: profile.id
+            contestantId: userId,
+            userId
         },
             )
     }
 
-    // const lastWeight = useMemo(() => {
-    //     const lastIndex = weight[weight.length -1];
-    //     const last = weight?.slice(-1);
-    //     return last
-    // }, [weight])
+    const toggleUpdatingValue = () => {
+        setIsUpdatingKg(!isUpdatingKg);
+    }
+
+    const onDetailsUpdate = (value: string) => {
+        setDetails(value);
+    }
+
     return (
         <Tabs defaultValue="weight">
             <TabsList>
@@ -88,13 +76,13 @@ export const ProfileTab = ({weight, calorie, workout, profile}: ProfileTabProps)
                 <TabsTrigger value="workout">Workout</TabsTrigger>
             </TabsList>
             <TabsContent value="weight">
-                {weight && (
+                {weightRecord && (
                     <>
                         <DrawerTrigger>
                             <Button>Add Weight</Button>
                         </DrawerTrigger>
-                        <Weight weightRecord={weight}/>
-                        <DataRecords records={weight} type={"Weight"} unit={"kg"}/>
+                        <Weight weightRecord={weightRecord}/>
+                        <DataRecords records={weightRecord} type={"Weight"} unit={"kg"}/>
                     </>
                 )
                 }
@@ -107,7 +95,7 @@ export const ProfileTab = ({weight, calorie, workout, profile}: ProfileTabProps)
 
                     </DrawerHeader>
                     <DrawerFooter className="pt-2">
-                        <WeightCounter  weight={Number(weightInput.toFixed(1))} reduceWeight={() => setWeightInput((w) => (w-0.1))} increaseWeight={() => setWeightInput((w) => w+0.1)}/>
+                        <WeightCounter setTextDetails={(w: string) => onDetailsUpdate(w)} textDetails={details} valueInterval={isUpdatingKg} updateValueInterval={toggleUpdatingValue} weight={Number(weightInput.toFixed(1))} reduceWeight={() => setWeightInput((w) => (w-(isUpdatingKg ? 1 : 0.1)))} increaseWeight={() => setWeightInput((w) => w+(isUpdatingKg ? 1 : 0.1))}/>
                         <DrawerClose>
                             <Button className={"w-full"} type="submit" disabled={!weightInput} onClick={onWeightAdd}>ADD</Button>
                         </DrawerClose>
@@ -118,13 +106,13 @@ export const ProfileTab = ({weight, calorie, workout, profile}: ProfileTabProps)
                 </DrawerContent>
             </TabsContent>
             <TabsContent value="calories">
-                {calorie && (
+                {caloriesRecord && (
                     <>
                         <DrawerTrigger>
                             <Button>Add Calories</Button>
                         </DrawerTrigger>
-                        <Calorie calorieRecord={calorie} />
-                        <DataRecords records={calorie} type={"calories"} unit={"kcal"}/>
+                        <Calorie calorieRecord={caloriesRecord} />
+                        <DataRecords records={caloriesRecord} type={"calories"} unit={"kcal"}/>
                     </>
                 )
                 }
@@ -148,13 +136,13 @@ export const ProfileTab = ({weight, calorie, workout, profile}: ProfileTabProps)
                 </DrawerContent>
             </TabsContent>
             <TabsContent value="workout">
-                {workout && (
+                {workoutRecord && (
                     <>
                         <DrawerTrigger>
                             <Button>Add Workout</Button>
                         </DrawerTrigger>
-                        <Workout workoutRecord={workout}/>
-                        <DataRecords records={workout} type={"Workout"} unit={"amount"}/>
+                        <Workout workoutRecord={workoutRecord}/>
+                        <DataRecords records={workoutRecord} type={"Workout"} unit={"amount"}/>
                     </>
                 )
                 }

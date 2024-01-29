@@ -1,10 +1,10 @@
 "use client"
 
 import {Bar, BarChart, Legend, ResponsiveContainer, YAxis} from "recharts";
-import {DataRecord} from "@/lib/mockData";
+import { Record } from '@prisma/client';
 
 type WorkoutProps = {
-    workoutRecord: DataRecord[]
+    workoutRecord: Record[]
 }
 
 export const Workout = ({workoutRecord}: WorkoutProps) => {

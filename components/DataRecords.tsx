@@ -7,10 +7,10 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import {DataRecord} from "@/lib/mockData";
+import { Record } from '@prisma/client';
 
 type DataRecordsType = {
-    records: DataRecord[];
+    records: Record[];
     type: string;
     unit: string;
 }
